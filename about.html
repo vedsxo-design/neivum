@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ru" data-lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#030405">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="OrivantAI — происхождение NEIVUM 0.1, инженерные принципы PULSAR и официальный фильм о первом публичном сигнале.">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="OrivantAI — The Origin of NEIVUM 0.1">
+  <meta property="og:description" content="Первый публичный сигнал NEIVUM 0.1, PULSAR и официальный Launch Film.">
+  <meta property="og:image" content="neivum-assets/neivum-about-og.png">
+  <meta property="og:site_name" content="NEIVUM by OrivantAI">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="./about.html" data-replace-in-production>
+  <link rel="manifest" href="manifest.webmanifest">
+  <title>About OrivantAI — NEIVUM 0.1 Launch Film</title>
+  <link rel="icon" href="neivum-assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="neivum-assets/apple-touch-icon.png">
+  <script src="neivum-assets/device.js"></script>
+  <link rel="stylesheet" href="neivum-assets/site.css">
+  <link rel="stylesheet" href="neivum-assets/about.css">
+  <script defer src="neivum-assets/core.js"></script>
+  <script defer src="neivum-assets/pulsar.js"></script>
+  <script defer src="neivum-assets/about.js"></script>
+</head>
+<body class="site-page about-page">
+  <a class="skip-link" href="#main" data-i18n="skip">Перейти к содержанию</a>
+
+  <header class="site-header" id="site-header">
+    <div class="header-frame">
+      <a class="wordmark" href="index.html" data-transition-link data-transition-label="RETURNING TO NEIVUM 0.1" aria-label="NEIVUM — официальный сайт">
+        <svg class="wordmark-symbol" viewBox="0 0 1000 1000" aria-hidden="true"><path fill-rule="evenodd" d="M125 491C237 483 310 456 343 407c38-56 40-120 18-186-17-51-45-99-86-142l562 412H125Zm159 0c75-22 134-83 166-175 53 51 91 109 107 175H284ZM125 509h712c-90 9-158 36-199 85-53 63-60 162 9 327-76-107-140-209-217-283-80-77-171-117-305-129Zm326 0h281c-72 29-118 81-133 165-47-68-94-123-148-165Z"/></svg>
+        <span>NEIVUM</span>
+      </a>
+
+      <nav class="desktop-nav" aria-label="Основная навигация">
+        <a href="index.html#system" data-transition-link data-transition-label="NEIVUM / SYSTEM" data-i18n="navSystem">System</a>
+        <a href="index.html#pulsar" data-transition-link data-transition-label="NEIVUM 0.1 / PULSAR" data-i18n="navPulsar">PULSAR</a>
+        <a href="index.html#architecture" data-transition-link data-transition-label="DEVELOPMENT ARCHITECTURE" data-i18n="navArchitecture">Architecture</a>
+        <a href="index.html#early-access" data-transition-link data-transition-label="EARLY ACCESS" data-i18n="navEarly">Early Access</a>
+        <a href="about.html" aria-current="page" data-i18n="navCompany">About OrivantAI</a>
+      </nav>
+
+      <div class="header-tools">
+        <button class="sound-toggle" type="button" data-sound-toggle aria-pressed="false">
+          <span class="sound-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+          <span data-sound-state>SOUND OFF</span>
+        </button>
+        <button class="language-toggle" id="language-toggle" type="button" aria-label="Переключить язык">EN</button>
+        <a class="open-app open-app-compact" href="app.html" data-open-app><span data-i18n="openShort">OPEN</span><i aria-hidden="true">↗</i></a>
+        <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Открыть меню"><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="mobile-menu" id="mobile-menu" aria-label="Мобильная навигация" aria-hidden="true" inert>
+    <div class="mobile-menu-links">
+      <a href="index.html#system" data-transition-link data-transition-label="NEIVUM / SYSTEM" data-i18n="navSystem">System</a>
+      <a href="index.html#pulsar" data-transition-link data-transition-label="NEIVUM 0.1 / PULSAR" data-i18n="navPulsar">PULSAR</a>
+      <a href="index.html#architecture" data-transition-link data-transition-label="DEVELOPMENT ARCHITECTURE" data-i18n="navArchitecture">Architecture</a>
+      <a href="index.html#early-access" data-transition-link data-transition-label="EARLY ACCESS" data-i18n="navEarly">Early Access</a>
+      <a href="about.html" aria-current="page" data-i18n="navCompany">About OrivantAI</a>
+    </div>
+    <a class="open-app mobile-open-app" href="app.html" data-open-app><span data-i18n="openNeivum">Открыть NEIVUM</span><i>↗</i></a>
+    <p class="micro">ORIVANTAI / NEIVUM SYSTEM<br>BUILD 0.1 / PULSAR ACTIVE<br><span data-device-state>DEVICE CHECK / INITIALIZING</span></p>
+  </nav>
+
+  <div class="page-transition" data-page-transition aria-hidden="true">
+    <div class="transition-line"></div>
+    <svg viewBox="0 0 1000 1000"><path fill-rule="evenodd" d="M125 491C237 483 310 456 343 407c38-56 40-120 18-186-17-51-45-99-86-142l562 412H125Zm159 0c75-22 134-83 166-175 53 51 91 109 107 175H284ZM125 509h712c-90 9-158 36-199 85-53 63-60 162 9 327-76-107-140-209-217-283-80-77-171-117-305-129Zm326 0h281c-72 29-118 81-133 165-47-68-94-123-148-165Z"/></svg>
+    <span>ORIVANTAI / FIRST SIGNAL</span>
+  </div>
+
+  <main id="main">
+    <section class="about-hero" aria-labelledby="about-title">
+      <canvas id="about-pulsar-canvas" data-progress=".82">PULSAR — визуализация нейтронной звезды с магнитосферой и двумя направленными лучами.</canvas>
+      <div class="about-hero-grid" aria-hidden="true"></div>
+      <div class="about-hero-vignette" aria-hidden="true"></div>
+      <div class="about-hero-inner">
+        <p class="about-eyebrow micro">00 / COMPANY ORIGIN</p>
+        <h1 id="about-title">OrivantAI<span>.</span></h1>
+        <p class="about-lead" data-i18n="heroLead">Мы создаём NEIVUM поэтапно — от первого работающего сигнала к более точной и целостной интеллектуальной системе.</p>
+        <div class="about-proof micro"><i></i><span>NEIVUM 0.1 / PULSAR ACTIVE</span></div>
+      </div>
+      <a class="about-scroll micro" href="#origin"><span data-i18n="enterStory">Войти в историю происхождения</span><i aria-hidden="true">↓</i></a>
+    </section>
+
+    <section class="origin-statement about-frame reveal" id="origin" aria-labelledby="origin-title">
+      <p class="chapter-index micro">01 / FIRST PRINCIPLE</p>
+      <h2 id="origin-title" data-i18n="originTitle">Каждая большая система начинается с первого сигнала.</h2>
+      <p class="origin-aside" data-i18n="originBody">OrivantAI начинается не с обещания завершённого интеллекта, а с инженерно проверяемой первой версии. NEIVUM 0.1 — открытая точка отсчёта.</p>
+    </section>
+
+    <section class="neivum-origin about-frame reveal" aria-labelledby="neivum-origin-title">
+      <div class="origin-number" aria-hidden="true">0.1</div>
+      <div class="origin-copy">
+        <p class="chapter-index micro">02 / THE ORIGIN OF NEIVUM</p>
+        <h2 id="neivum-origin-title" data-i18n="neivumTitle">Сначала — работающий сигнал. Затем — система.</h2>
+        <p data-i18n="neivumBody">NEIVUM создаётся итеративно: реальные сценарии, наблюдение за слабостями, уточнение архитектуры и следующий проверяемый шаг. Платформа не скрывает раннюю стадию — она делает её частью продукта.</p>
+        <dl class="origin-ledger">
+          <div><dt>PUBLIC BUILD</dt><dd>NEIVUM 0.1</dd></div>
+          <div><dt>INTELLIGENCE LEVEL</dt><dd>PULSAR</dd></div>
+          <div><dt>STATE</dt><dd>EARLY DEVELOPMENT</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section class="pulsar-origin about-frame reveal" aria-labelledby="pulsar-origin-title">
+      <div class="pulsar-axis-figure" aria-hidden="true">
+        <span class="axis-core"></span>
+        <span class="axis-beam axis-beam-a"></span>
+        <span class="axis-beam axis-beam-b"></span>
+        <i></i><i></i><i></i><i></i>
+      </div>
+      <div class="pulsar-origin-copy">
+        <p class="chapter-index micro">03 / FIRST PUBLIC SIGNAL</p>
+        <h2 id="pulsar-origin-title">PULSAR</h2>
+        <p data-i18n="pulsarBody">Название отсылает к нейтронной звезде: сверхплотное ядро, наклонённая магнитная ось и два луча, которые становятся наблюдаемым импульсом при вращении. Для NEIVUM это метафора первого устойчивого интеллектуального сигнала.</p>
+        <div class="pulsar-truth micro"><span>SCIENTIFIC BASIS</span><i></i><strong>AUTHORIAL SYSTEM</strong></div>
+      </div>
+    </section>
+
+    <section class="launch-film reveal" id="launch-film" aria-labelledby="film-title">
+      <div class="film-heading about-frame">
+        <div>
+          <p class="chapter-index micro">04 / OFFICIAL LAUNCH FILM</p>
+          <h2 id="film-title">NEIVUM 0.1<br><span>THE FIRST SIGNAL</span></h2>
+        </div>
+        <p data-i18n="filmIntro">Фильм фиксирует первую публичную точку NEIVUM: не финал системы, а момент, когда её первый сигнал становится видимым.</p>
+      </div>
+
+      <div class="film-shell about-frame" id="film-shell">
+        <div class="film-viewport" id="film-viewport">
+          <button class="film-poster" type="button" data-film-player aria-label="Воспроизвести официальный Launch Film NEIVUM 0.1">
+            <img src="neivum-assets/neivum-launch-film-poster.webp" width="1920" height="1080" loading="lazy" decoding="async" alt="NEIVUM 0.1 by OrivantAI — PULSAR, официальный постер Launch Film">
+            <span class="film-shade" aria-hidden="true"></span>
+            <span class="film-scan" aria-hidden="true"></span>
+            <span class="film-caption">
+              <small>NEIVUM 0.1</small>
+              <strong>THE FIRST SIGNAL</strong>
+              <em>OFFICIAL LAUNCH FILM</em>
+            </span>
+            <span class="film-play" aria-hidden="true"><i></i><b>PLAY FILM</b></span>
+          </button>
+        </div>
+        <div class="film-meta">
+          <p id="film-status" role="status" aria-live="polite" data-i18n="filmReady">Видео загрузится с YouTube только после нажатия.</p>
+          <div class="film-controls">
+            <button class="film-control" id="film-close" type="button" hidden data-i18n="closeFilm">Закрыть фильм</button>
+            <button class="film-control" id="restore-atmosphere" type="button" hidden data-i18n="restoreAtmosphere">Вернуть атмосферу NEIVUM</button>
+            <a href="https://youtu.be/l2cALhZG3f8" target="_blank" rel="noopener noreferrer" data-i18n="openYoutube">Открыть трейлер на YouTube ↗</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="principles about-frame reveal" aria-labelledby="principles-title">
+      <div class="principles-heading">
+        <p class="chapter-index micro">05 / ENGINEERING PRINCIPLES</p>
+        <h2 id="principles-title" data-i18n="principlesTitle">Дисциплина важнее громкости обещаний.</h2>
+      </div>
+      <ol class="principles-list">
+        <li><span>01</span><h3 data-i18n="principle1">Проверяемый прогресс</h3><p data-i18n="principle1Body">Каждая версия должна быть реальной основой для испытаний, а не заявлением о будущем.</p></li>
+        <li><span>02</span><h3 data-i18n="principle2">Целостная архитектура</h3><p data-i18n="principle2Body">Текст, код, информация и инструменты развиваются как направления одной системы.</p></li>
+        <li><span>03</span><h3 data-i18n="principle3">Инженерная честность</h3><p data-i18n="principle3Body">NEIVUM 0.1 не выдаёт раннюю стадию за завершённый интеллект.</p></li>
+        <li><span>04</span><h3 data-i18n="principle4">Реальные сценарии</h3><p data-i18n="principle4Body">Развитие определяется наблюдаемым применением и качественной обратной связью.</p></li>
+      </ol>
+    </section>
+
+    <section class="early-participants about-frame reveal" aria-labelledby="participants-title">
+      <div class="participant-signal" aria-hidden="true"><i></i><i></i><span></span></div>
+      <div class="participants-copy">
+        <p class="chapter-index micro">06 / EARLY PARTICIPANTS</p>
+        <h2 id="participants-title" data-i18n="participantsTitle">Первые пользователи помогают системе увидеть собственные границы.</h2>
+        <p data-i18n="participantsBody">Их тесты обнаруживают слабые места, обратная связь влияет на приоритеты, а реальные задачи формируют направление следующего инженерного шага.</p>
+        <a href="index.html#early-access" data-transition-link data-transition-label="EARLY ACCESS / FIRST SIGNAL"><span data-i18n="joinAccess">Присоединиться к раннему доступу</span><i>↗</i></a>
+      </div>
+    </section>
+
+    <section class="about-finale reveal" aria-labelledby="about-final-title">
+      <div class="about-final-mark" aria-hidden="true">
+        <svg viewBox="0 0 1000 1000"><path fill-rule="evenodd" d="M125 491C237 483 310 456 343 407c38-56 40-120 18-186-17-51-45-99-86-142l562 412H125Zm159 0c75-22 134-83 166-175 53 51 91 109 107 175H284ZM125 509h712c-90 9-158 36-199 85-53 63-60 162 9 327-76-107-140-209-217-283-80-77-171-117-305-129Zm326 0h281c-72 29-118 81-133 165-47-68-94-123-148-165Z"/></svg>
+      </div>
+      <div class="about-final-copy">
+        <p class="chapter-index micro">07 / THE SIGNAL CONTINUES</p>
+        <h2 id="about-final-title" data-i18n="finalTitle">Путь NEIVUM только начинается.</h2>
+        <p data-i18n="finalBody">NEIVUM 0.1 — первый публичный сигнал OrivantAI. Следующая часть истории формируется внутри системы.</p>
+        <a class="about-open-app" href="app.html" data-open-app><span data-i18n="openNeivum">Открыть NEIVUM</span><i>↗</i></a>
+      </div>
+      <div class="about-final-brand"><strong>NEIVUM</strong><span>by OrivantAI</span><small>NEIVUM 0.1 / PULSAR</small></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2026 ORIVANTAI</p>
+    <p>NEIVUM SYSTEM / PUBLIC BUILD 0.1</p>
+    <a href="index.html" data-transition-link data-transition-label="RETURNING TO NEIVUM 0.1" data-i18n="officialSite">ОФИЦИАЛЬНЫЙ САЙТ ↗</a>
+    <a href="#main" data-i18n="backTop">Вернуться к началу ↑</a>
+  </footer>
+
+  <noscript><div class="noscript">JavaScript необходим для интерактивной визуализации и click-to-load плеера. Трейлер доступен по прямой ссылке на YouTube.</div></noscript>
+</body>
+</html>

@@ -26,6 +26,8 @@
       };
       this.fadeFrame = 0;
       this.pendingResume = this.enabled;
+      this.mediaWasAudible = false;
+      this.mediaActive = false;
       this.restoreTime();
       this.bindControls();
       this.bindLifecycle();
@@ -87,6 +89,11 @@
     }
 
     async start(withActivation = true) {
+      if (this.mediaActive) {
+        this.pendingResume = this.enabled;
+        this.paint();
+        return;
+      }
       this.ambient.preload = "auto";
       try {
         await this.ambient.play();
@@ -130,6 +137,30 @@
       sound.play().catch(() => {});
     }
 
+    duckForMedia() {
+      this.mediaActive = true;
+      this.mediaWasAudible = this.enabled && !this.ambient.paused && this.ambient.volume > .01;
+      if (this.mediaWasAudible) {
+        this.rememberTime();
+        this.fadeTo(0, 620, true);
+      }
+      return this.mediaWasAudible;
+    }
+
+    releaseMedia() {
+      this.mediaActive = false;
+      return this.enabled && (this.mediaWasAudible || this.pendingResume);
+    }
+
+    restoreAfterMedia() {
+      const shouldRestore = this.enabled && (this.mediaWasAudible || this.pendingResume);
+      this.mediaActive = false;
+      if (!shouldRestore) return false;
+      this.mediaWasAudible = false;
+      this.start(false);
+      return true;
+    }
+
     paint() {
       document.documentElement.dataset.sound = this.enabled ? "on" : "off";
       document.querySelectorAll("[data-sound-toggle]").forEach((button) => {
@@ -141,13 +172,16 @@
     }
   }
 
-  function bindAppTransitions(sound) {
+  function bindPageTransitions(sound) {
     const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
-    document.querySelectorAll("[data-open-app]").forEach((link) => {
+    document.querySelectorAll("[data-open-app], [data-transition-link]").forEach((link) => {
       link.addEventListener("click", (event) => {
-        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+        if (event.defaultPrevented || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || link.target === "_blank") return;
         event.preventDefault();
         const target = link.href;
+        const transition = document.querySelector("[data-page-transition]");
+        const label = transition?.querySelector("span");
+        if (label && link.dataset.transitionLabel) label.textContent = link.dataset.transitionLabel;
         sound.play("activate", .8);
         if (reduceMotion) {
           sound.rememberTime();
@@ -155,7 +189,7 @@
           return;
         }
         document.body.classList.add("is-transitioning");
-        document.querySelector("[data-page-transition]")?.classList.add("is-active");
+        transition?.classList.add("is-active");
         if (!sound.ambient.paused) sound.fadeTo(0, 760);
         window.setTimeout(() => {
           sound.rememberTime();
@@ -173,7 +207,7 @@
 
   function boot() {
     const sound = new SoundSystem();
-    bindAppTransitions(sound);
+    bindPageTransitions(sound);
     registerServiceWorker();
     window.NEIVUM = { sound, storage, asset, device: window.NEIVUM_DEVICE || null };
     window.dispatchEvent(new CustomEvent("neivum:ready"));

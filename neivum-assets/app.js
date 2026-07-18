@@ -11,7 +11,7 @@
   const translations = {
     ru: {
       skip: "Перейти к диалогу", newConversation: "Новый диалог", localHistory: "Локальная история", emptyHistory: "История появится после первого сигнала.", settings: "Настройки", backSite: "Официальный сайт",
-      welcomeTitle: "Какой сигнал вы хотите передать?", welcomeBody: "Начните новый диалог или выберите направление. Сейчас открыт прозрачный демонстрационный режим без подключения к реальной AI-модели.", promptText: "Работа с текстом", promptCode: "Программный код", promptAnalysis: "Анализ информации", promptIdea: "Исследование идеи", messagePlaceholder: "Передайте сигнал…", demoDisclosure: "Подготовленные локальные ответы. Реальная модель и внешний API не подключены.",
+      welcomeTitle: "Какой сигнал вы хотите передать?", welcomeBody: "Начните новый диалог или выберите направление. Сейчас открыт прозрачный демонстрационный режим без подключения к реальной AI-модели.", promptText: "Работа с текстом", promptCode: "Программный код", promptAnalysis: "Анализ информации", promptIdea: "Исследование идеи", promptTextNote: "Структура, ясность, редактура", promptCodeNote: "Логика, ошибки, объяснение", promptAnalysisNote: "Факты, связи, выводы", promptIdeaNote: "Гипотезы, риски, проверка", messagePlaceholder: "Передайте сигнал…", demoDisclosure: "Подготовленные локальные ответы. Реальная модель и внешний API не подключены.",
       soundscape: "Музыкальная атмосфера", soundscapeNote: "Оригинальный 96-секундный трек NEIVUM", volume: "Громкость", volumeNote: "Музыка и интерфейсные сигналы", language: "Язык интерфейса", deviceMode: "Режим устройства", deviceNote: "Проверяется до запуска визуальных эффектов", privacyNote: "Диалоги хранятся только в localStorage этого браузера. Они не отправляются OrivantAI или сторонним сервисам.",
       promptTextValue: "Помоги улучшить и структурировать текст.", promptCodeValue: "Помоги разобрать программный код и логику решения.", promptAnalysisValue: "Помоги проанализировать информацию и выделить главное.", promptIdeaValue: "Давай исследуем идею и проверим её слабые места.",
       you: "Вы", assistant: "NEIVUM / PULSAR", untitled: "Новый сигнал", deleteThread: "Удалить диалог", openThread: "Открыть диалог", sending: "Обработка сигнала",
@@ -24,7 +24,7 @@
     },
     en: {
       skip: "Skip to conversation", newConversation: "New conversation", localHistory: "Local history", emptyHistory: "History will appear after the first signal.", settings: "Settings", backSite: "Official website",
-      welcomeTitle: "What signal would you like to transmit?", welcomeBody: "Start a new conversation or choose a direction. This is a transparent interface demonstration with no live AI model connected.", promptText: "Work with text", promptCode: "Software code", promptAnalysis: "Analyze information", promptIdea: "Explore an idea", messagePlaceholder: "Transmit a signal…", demoDisclosure: "Prepared local responses. No live model or external API is connected.",
+      welcomeTitle: "What signal would you like to transmit?", welcomeBody: "Start a new conversation or choose a direction. This is a transparent interface demonstration with no live AI model connected.", promptText: "Work with text", promptCode: "Software code", promptAnalysis: "Analyze information", promptIdea: "Explore an idea", promptTextNote: "Structure, clarity, editing", promptCodeNote: "Logic, errors, explanation", promptAnalysisNote: "Facts, relations, conclusions", promptIdeaNote: "Hypotheses, risks, validation", messagePlaceholder: "Transmit a signal…", demoDisclosure: "Prepared local responses. No live model or external API is connected.",
       soundscape: "Musical atmosphere", soundscapeNote: "Original 96-second NEIVUM score", volume: "Volume", volumeNote: "Music and interface signals", language: "Interface language", deviceMode: "Device mode", deviceNote: "Checked before visual effects start", privacyNote: "Conversations are stored only in this browser's localStorage. They are not sent to OrivantAI or third-party services.",
       promptTextValue: "Help me improve and structure a piece of text.", promptCodeValue: "Help me examine software code and the solution logic.", promptAnalysisValue: "Help me analyze information and identify what matters.", promptIdeaValue: "Let's explore an idea and test its weak points.",
       you: "You", assistant: "NEIVUM / PULSAR", untitled: "New signal", deleteThread: "Delete conversation", openThread: "Open conversation", sending: "Processing signal",
@@ -43,6 +43,118 @@
   let requestToken = 0;
   let sending = false;
   const t = (key) => translations[language][key] || key;
+
+  class CompactSignal {
+    constructor(canvas) {
+      this.canvas = canvas;
+      this.ctx = canvas?.getContext("2d", { alpha: true, desynchronized: true });
+      if (!this.ctx) return;
+      this.profile = window.NEIVUM_DEVICE?.profile || {};
+      this.running = !document.hidden;
+      this.last = 0;
+      this.resize = this.resize.bind(this);
+      this.frame = this.frame.bind(this);
+      this.resize();
+      addEventListener("resize", this.resize, { passive: true });
+      addEventListener("neivum:device", (event) => { this.profile = event.detail || this.profile; this.resize(); });
+      document.addEventListener("visibilitychange", () => {
+        this.running = !document.hidden;
+        if (this.running && !reduceMotion.matches) requestAnimationFrame(this.frame);
+      });
+      if (reduceMotion.matches) this.draw(0, true); else requestAnimationFrame(this.frame);
+    }
+
+    resize() {
+      const rect = this.canvas.getBoundingClientRect();
+      this.width = Math.max(1, rect.width);
+      this.height = Math.max(1, rect.height);
+      const cap = this.profile.quality === "safe" ? 1 : Math.min(1.5, this.profile.dprCap || 1.5);
+      this.dpr = Math.min(devicePixelRatio || 1, cap);
+      this.canvas.width = Math.round(this.width * this.dpr);
+      this.canvas.height = Math.round(this.height * this.dpr);
+      this.ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
+      if (reduceMotion.matches) this.draw(0, true);
+    }
+
+    draw(timestamp, still = false) {
+      const ctx = this.ctx;
+      const time = still ? 0 : timestamp * .001;
+      const width = this.width;
+      const height = this.height;
+      const cx = width * .5;
+      const cy = height * .5;
+      const unit = Math.min(width, height);
+      const safe = this.profile.quality === "safe";
+      ctx.clearRect(0, 0, width, height);
+      ctx.save();
+      ctx.globalCompositeOperation = "lighter";
+
+      const halo = ctx.createRadialGradient(cx, cy, 0, cx, cy, unit * .62);
+      halo.addColorStop(0, "rgba(166,180,238,.11)");
+      halo.addColorStop(.4, "rgba(94,108,171,.045)");
+      halo.addColorStop(1, "rgba(4,6,8,0)");
+      ctx.fillStyle = halo;
+      ctx.fillRect(0, 0, width, height);
+
+      const radius = unit * .075;
+      const axis = -.56 + Math.sin(time * .28) * (still ? 0 : .32);
+      const pulse = still ? .72 : .5 + Math.pow(.5 + .5 * Math.cos(time * .84), 8) * .5;
+      const lines = safe ? 4 : 7;
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.rotate(axis + Math.PI / 2);
+      for (let i = 0; i < lines; i += 1) {
+        const reach = unit * (.16 + i * .06);
+        ctx.beginPath();
+        ctx.moveTo(0, -radius * .72);
+        ctx.bezierCurveTo(reach * .55, -reach * .44, reach, reach * .06, 0, radius * .72);
+        ctx.bezierCurveTo(-reach, reach * .06, -reach * .55, -reach * .44, 0, -radius * .72);
+        ctx.strokeStyle = `rgba(194,205,243,${.15 - i * .016})`;
+        ctx.lineWidth = .55;
+        ctx.stroke();
+      }
+      ctx.restore();
+
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.rotate(axis);
+      [-1, 1].forEach((direction) => {
+        const reach = width * .52;
+        const beam = ctx.createLinearGradient(radius * direction, 0, reach * direction, 0);
+        beam.addColorStop(0, `rgba(234,239,255,${.26 * pulse})`);
+        beam.addColorStop(.32, `rgba(148,166,225,${.13 * pulse})`);
+        beam.addColorStop(1, "rgba(103,123,193,0)");
+        ctx.beginPath();
+        ctx.moveTo(radius * .75 * direction, -unit * .006);
+        ctx.lineTo(reach * direction, -unit * .04);
+        ctx.lineTo(reach * direction, unit * .04);
+        ctx.lineTo(radius * .75 * direction, unit * .006);
+        ctx.closePath();
+        ctx.fillStyle = beam;
+        ctx.fill();
+      });
+      ctx.restore();
+
+      const core = ctx.createRadialGradient(cx - radius * .35, cy - radius * .3, 0, cx, cy, radius);
+      core.addColorStop(0, "rgba(255,255,255,.99)");
+      core.addColorStop(.24, "rgba(225,232,253,.98)");
+      core.addColorStop(.64, "rgba(119,134,183,.94)");
+      core.addColorStop(1, "rgba(37,44,63,.82)");
+      ctx.fillStyle = core;
+      ctx.beginPath(); ctx.arc(cx, cy, radius, 0, Math.PI * 2); ctx.fill();
+      ctx.strokeStyle = `rgba(229,235,255,${.34 + pulse * .17})`;
+      ctx.lineWidth = .75;
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    frame(timestamp) {
+      if (!this.running || reduceMotion.matches) return;
+      const fps = this.profile.fps || (this.profile.device === "phone" ? 30 : 60);
+      if (timestamp - this.last >= 1000 / fps) { this.last = timestamp; this.draw(timestamp); }
+      requestAnimationFrame(this.frame);
+    }
+  }
 
   class DemoProvider {
     async send(message) {
@@ -380,6 +492,8 @@
 
   function init() {
     language = window.NEIVUM?.storage.get("neivum.language", "ru") || "ru";
+    const signalCanvas = $("#app-signal-canvas");
+    if (signalCanvas) new CompactSignal(signalCanvas);
     loadThreads();
     setupThreads();
     setupComposer();

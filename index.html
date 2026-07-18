@@ -25,6 +25,7 @@
   <script src="neivum-assets/device.js"></script>
   <link rel="stylesheet" href="neivum-assets/site.css">
   <script defer src="neivum-assets/core.js"></script>
+  <script defer src="neivum-assets/pulsar.js"></script>
   <script defer src="neivum-assets/site.js"></script>
 </head>
 <body class="site-page">
@@ -42,7 +43,7 @@
         <a href="#pulsar" data-i18n="navPulsar">PULSAR</a>
         <a href="#architecture" data-i18n="navArchitecture">Architecture</a>
         <a href="#early-access" data-i18n="navEarly">Early Access</a>
-        <a href="#orivant" data-i18n="navCompany">OrivantAI</a>
+        <a href="about.html" data-transition-link data-transition-label="OPENING ORIVANTAI" data-i18n="navCompany">About OrivantAI</a>
       </nav>
 
       <div class="header-tools">
@@ -63,7 +64,7 @@
       <a href="#pulsar" data-i18n="navPulsar">PULSAR</a>
       <a href="#architecture" data-i18n="navArchitecture">Architecture</a>
       <a href="#early-access" data-i18n="navEarly">Early Access</a>
-      <a href="#orivant" data-i18n="navCompany">OrivantAI</a>
+      <a href="about.html" data-transition-link data-transition-label="OPENING ORIVANTAI" data-i18n="navCompany">About OrivantAI</a>
     </div>
     <a class="open-app mobile-open-app" href="app.html" data-open-app><span data-i18n="openNeivum">Открыть NEIVUM</span><i>↗</i></a>
     <p class="micro">ORIVANTAI / NEIVUM SYSTEM<br>BUILD 0.1 / PULSAR ACTIVE<br><span data-device-state>DEVICE CHECK / INITIALIZING</span></p>
@@ -78,7 +79,9 @@
   <main id="main">
     <section class="signal-narrative" id="platform" aria-label="История первого сигнала">
       <div class="signal-stage" aria-hidden="true">
-        <canvas id="pulsar-canvas">Абстрактная вычислительная структура PULSAR.</canvas>
+        <canvas id="pulsar-canvas">Научно вдохновлённая визуализация нейтронной звезды PULSAR с магнитосферой и направленными лучами.</canvas>
+        <div class="stage-aperture"><i></i><i></i><i></i></div>
+        <div class="stage-spectrum"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
         <div class="stage-vignette"></div>
         <div class="stage-axis axis-x"></div>
         <div class="stage-axis axis-y"></div>
@@ -87,6 +90,17 @@
           <strong id="phase-label">ORIGIN</strong>
         </div>
         <div class="stage-coordinate">NVM/S001 <span id="phase-index">00</span></div>
+        <div class="stage-carrier"><span>CARRIER / STABLE</span><i></i><strong>PLSR—001</strong></div>
+      </div>
+
+      <div class="signal-progress" id="signal-progress" aria-hidden="true">
+        <div class="signal-progress-track"><i></i></div>
+        <ol>
+          <li class="is-active" data-story-marker="0"><span>00</span><b>ORIGIN</b></li>
+          <li data-story-marker="1"><span>01</span><b>SIGNAL</b></li>
+          <li data-story-marker="2"><span>02</span><b>STRUCTURE</b></li>
+          <li data-story-marker="3"><span>03</span><b>PULSAR</b></li>
+        </ol>
       </div>
 
       <article class="story-beat hero-beat is-active" data-phase="0" data-label="ORIGIN">
@@ -95,6 +109,7 @@
             <p class="system-live"><i></i><span data-i18n="publicSignal">Первый публичный сигнал</span></p>
             <h1>NEIVUM<span>0.1</span></h1>
             <p class="pulsar-name">PULSAR</p>
+            <p class="hero-signal-id micro">SIGNAL / PLSR—001&nbsp;&nbsp;·&nbsp;&nbsp;PUBLIC ORIGIN</p>
           </div>
           <div class="hero-secondary">
             <p class="hero-statement" data-i18n="heroStatement">Первый сигнал развивающегося интеллекта.</p>
@@ -102,6 +117,7 @@
               <a class="primary-action" href="app.html" data-open-app><span data-i18n="openNeivum">Открыть NEIVUM</span><i>↗</i></a>
               <a class="text-action" href="#system"><span data-i18n="explore">Исследовать систему</span><i>↓</i></a>
             </div>
+            <a class="launch-film-link" href="about.html#launch-film" data-transition-link data-transition-label="NEIVUM 0.1 / LAUNCH FILM"><span data-i18n="launchFilm">Смотреть фильм о запуске</span><i aria-hidden="true">↗</i></a>
           </div>
           <div class="hero-build micro">ORIVANTAI / NEIVUM SYSTEM<br>BUILD 0.1 / PULSAR ACTIVE</div>
           <div class="hero-scroll micro"><span data-i18n="scrollToEnter">Прокрутите, чтобы войти в сигнал</span><i></i></div>
@@ -124,6 +140,11 @@
             <p class="build-kicker">NEIVUM / PUBLIC BUILD</p>
             <h2 data-i18n="buildTitle">Первая работающая точка.</h2>
             <p data-i18n="buildBody">Не финальная система и не обещание недоказанных возможностей. Это инженерная основа, которую можно испытывать, уточнять и развивать.</p>
+            <div class="build-ledger" aria-label="Статус текущей сборки">
+              <div><span>RELEASE</span><strong>PUBLIC / 0.1</strong></div>
+              <div><span>SIGNAL</span><strong>PULSAR / ACTIVE</strong></div>
+              <div><span>STATE</span><strong>EARLY DEVELOPMENT</strong></div>
+            </div>
           </div>
         </div>
       </article>
@@ -137,6 +158,13 @@
           </div>
           <div class="pulsar-definition">
             <p data-i18n="pulsarBody">Первая точка пробуждения NEIVUM. Ясный и доступный уровень, с которого начинается развитие системы.</p>
+            <div class="pulsar-waveform" aria-hidden="true">
+              <svg viewBox="0 0 640 76" preserveAspectRatio="none">
+                <path class="wave-base" d="M0 38H640"/>
+                <path class="wave-live" d="M0 38H104l18-2 14-16 15 36 16-18h51l14-4 12-26 17 54 17-24h74l16-3 13-18 17 39 15-18h58l13-3 11-13 14 27 17-11H640"/>
+              </svg>
+              <span>FIRST STABLE CARRIER</span>
+            </div>
             <dl>
               <div><dt data-i18n="character">Характер</dt><dd data-i18n="clearDirected">Ясный / направленный</dd></div>
               <div><dt data-i18n="stage">Стадия</dt><dd data-i18n="earlyDevelopment">Раннее развитие</dd></div>
@@ -153,11 +181,15 @@
         <h2 id="capability-title" data-i18n="capabilityTitle">Одна система.<br>Четыре направления работы.</h2>
         <p data-i18n="capabilityBody">Текущая версия исследует практические сценарии взаимодействия без выдуманных метрик и заявлений о превосходстве.</p>
       </div>
+      <div class="capability-router" aria-hidden="true">
+        <span>USER SIGNAL</span><i></i><strong>PULSAR / 0.1</strong><i></i><span>STRUCTURED RESPONSE</span>
+        <svg viewBox="0 0 1000 40" preserveAspectRatio="none"><path d="M0 20H182l18-1 10-9 12 21 13-11h214l15-3 11-13 14 31 15-15h194l14-2 8-7 10 18 12-9H1000"/></svg>
+      </div>
       <ul class="capability-axis">
-        <li><span>01</span><strong data-i18n="textWork">Текст</strong><small data-i18n="developmentDirection">Направление развития</small></li>
-        <li><span>02</span><strong data-i18n="codeWork">Программный код</strong><small data-i18n="developmentDirection">Направление развития</small></li>
-        <li><span>03</span><strong data-i18n="informationWork">Информация</strong><small data-i18n="developmentDirection">Направление развития</small></li>
-        <li><span>04</span><strong data-i18n="toolsWork">Цифровые инструменты</strong><small data-i18n="developmentDirection">Направление развития</small></li>
+        <li data-channel="text"><span>01</span><strong data-i18n="textWork">Текст</strong><small data-i18n="developmentDirection">Направление развития</small><i aria-hidden="true"></i></li>
+        <li data-channel="code"><span>02</span><strong data-i18n="codeWork">Программный код</strong><small data-i18n="developmentDirection">Направление развития</small><i aria-hidden="true"></i></li>
+        <li data-channel="information"><span>03</span><strong data-i18n="informationWork">Информация</strong><small data-i18n="developmentDirection">Направление развития</small><i aria-hidden="true"></i></li>
+        <li data-channel="tools"><span>04</span><strong data-i18n="toolsWork">Цифровые инструменты</strong><small data-i18n="developmentDirection">Направление развития</small><i aria-hidden="true"></i></li>
       </ul>
     </section>
 
@@ -183,6 +215,7 @@
         <p data-i18n="accessBody">Тесты, идеи и обратная связь помогают находить слабые места, выбирать приоритеты и формировать направление NEIVUM.</p>
       </div>
       <form class="access-form" id="early-access-form" novalidate>
+        <div class="access-form-head"><span>EARLY ACCESS CHANNEL</span><strong><i></i>LOCAL DEMO</strong></div>
         <div class="form-field">
           <label for="access-email">EMAIL</label>
           <input id="access-email" type="email" autocomplete="email" required placeholder="you@example.com">
@@ -215,6 +248,7 @@
         <span>by OrivantAI</span>
         <small>NEIVUM 0.1 / PULSAR</small>
       </div>
+      <div class="final-coordinates micro" aria-hidden="true"><span>ORIGIN / 00</span><i></i><span>SIGNAL CONTINUES</span></div>
       <a class="final-open-app" href="app.html" data-open-app><span data-i18n="transmitSignal">Передать первый сигнал</span><i>↗</i></a>
     </section>
   </main>
@@ -222,6 +256,7 @@
   <footer class="site-footer">
     <p>© 2026 ORIVANTAI</p>
     <p>NEIVUM SYSTEM / PUBLIC BUILD 0.1</p>
+    <a href="about.html" data-transition-link data-transition-label="OPENING ORIVANTAI">ABOUT ORIVANTAI ↗</a>
     <a href="#platform" data-i18n="backTop">Вернуться к началу ↑</a>
   </footer>
 
