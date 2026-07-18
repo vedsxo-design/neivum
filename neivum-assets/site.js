@@ -7,8 +7,8 @@
 
   const copy = {
     ru: {
-      skip: "Перейти к содержанию", navSystem: "System", navPulsar: "PULSAR", navArchitecture: "Architecture", navEarly: "Early Access", navCompany: "OrivantAI", openAppShort: "OPEN",
-      openNeivum: "Открыть NEIVUM", publicSignal: "Первый публичный сигнал", heroStatement: "Первый сигнал развивающегося интеллекта.", explore: "Исследовать систему", scrollToEnter: "Прокрутите, чтобы войти в сигнал", stageSignal: "Состояние сигнала",
+      skip: "Перейти к содержанию", navSystem: "System", navPulsar: "PULSAR", navArchitecture: "Architecture", navEarly: "Early Access", navCompany: "About OrivantAI", openAppShort: "OPEN",
+      openNeivum: "Открыть NEIVUM", publicSignal: "Первый публичный сигнал", heroStatement: "Первый сигнал развивающегося интеллекта.", explore: "Исследовать систему", launchFilm: "Смотреть фильм о запуске", scrollToEnter: "Прокрутите, чтобы войти в сигнал", stageSignal: "Состояние сигнала",
       originTitle: "Каждая большая система начинается с первого сигнала.", originBody: "NEIVUM создаётся поэтапно: от первых работающих моделей к более точной, глубокой и целостной интеллектуальной системе.",
       buildTitle: "Первая работающая точка.", buildBody: "Не финальная система и не обещание недоказанных возможностей. Это инженерная основа, которую можно испытывать, уточнять и развивать.",
       pulsarBody: "Первая точка пробуждения NEIVUM. Ясный и доступный уровень, с которого начинается развитие системы.", character: "Характер", clearDirected: "Ясный / направленный", stage: "Стадия", earlyDevelopment: "Раннее развитие", principle: "Принцип", verifiable: "Проверяемый прогресс",
@@ -18,8 +18,8 @@
       finalTitle: "Предел возможностей искусственного интеллекта ещё не определён.", finalBody: "Но каждый новый рубеж начинается с первого шага — и с тех, кто готов сделать его раньше остальных. Путь NEIVUM только начинается.", transmitSignal: "Передать первый сигнал", backTop: "Вернуться к началу ↑"
     },
     en: {
-      skip: "Skip to content", navSystem: "System", navPulsar: "PULSAR", navArchitecture: "Architecture", navEarly: "Early Access", navCompany: "OrivantAI", openAppShort: "OPEN",
-      openNeivum: "Open NEIVUM", publicSignal: "First public signal", heroStatement: "The first signal of an evolving intelligence.", explore: "Explore the system", scrollToEnter: "Scroll to enter the signal", stageSignal: "Signal state",
+      skip: "Skip to content", navSystem: "System", navPulsar: "PULSAR", navArchitecture: "Architecture", navEarly: "Early Access", navCompany: "About OrivantAI", openAppShort: "OPEN",
+      openNeivum: "Open NEIVUM", publicSignal: "First public signal", heroStatement: "The first signal of an evolving intelligence.", explore: "Explore the system", launchFilm: "Watch the launch film", scrollToEnter: "Scroll to enter the signal", stageSignal: "Signal state",
       originTitle: "Every significant system begins with a first signal.", originBody: "NEIVUM is built in stages: from the first working models toward a more precise, deeper and more coherent intelligence system.",
       buildTitle: "The first working point.", buildBody: "Not a finished system and not a promise of unverified capabilities. It is an engineering foundation that can be tested, refined and developed.",
       pulsarBody: "The first point of NEIVUM awakening. A clear and accessible level from which the system begins to develop.", character: "Character", clearDirected: "Clear / directed", stage: "Stage", earlyDevelopment: "Early development", principle: "Principle", verifiable: "Verifiable progress",
@@ -147,44 +147,95 @@
 
     filament(cx, cy, index, unit) {
       const ctx = this.ctx;
-      const phase = index / 18 * Math.PI * 2;
-      const reach = unit * (.14 + this.progress * .28 + (index % 4) * .012);
-      const curl = .68 + this.progress * .23;
+      const axis = -.62 + Math.sin(this.time * .23) * .42;
+      const direction = index % 2 ? 1 : -1;
+      const phase = (index * 1.618 % 1) * Math.PI * 2;
+      const reach = unit * (.12 + this.progress * .36 + (index % 4) * .018);
       ctx.beginPath();
-      for (let point = 0; point <= 46; point += 1) {
-        const p = point / 46;
-        const angle = phase + Math.sin(p * Math.PI) * curl + this.time * .012 * (index % 2 ? 1 : -1);
+      for (let point = 0; point <= 34; point += 1) {
+        const p = point / 34;
         const r = unit * .055 + reach * p;
-        const wave = Math.sin(p * 17 + phase * 3 + this.time * .45) * unit * .0035 * p;
-        const x = cx + Math.cos(angle) * (r + wave);
-        const y = cy + Math.sin(angle) * (r + wave) * (.58 + this.progress * .17);
+        const spread = Math.sin(phase + p * 8 + this.time * .35) * unit * .006 * p;
+        const x = cx + Math.cos(axis) * r * direction - Math.sin(axis) * spread;
+        const y = cy + Math.sin(axis) * r * direction + Math.cos(axis) * spread;
         if (!point) ctx.moveTo(x, y); else ctx.lineTo(x, y);
       }
-      ctx.strokeStyle = `rgba(191, 203, 247, ${.025 + this.progress * .055})`;
+      ctx.strokeStyle = `rgba(191,203,247,${.018 + this.progress * .052})`;
       ctx.lineWidth = .55;
       ctx.stroke();
     }
 
     contour(cx, cy, unit, ring) {
       const ctx = this.ctx;
-      const points = this.lowPower ? 90 : 150;
-      const base = unit * (.075 + ring * .037 + this.progress * ring * .006);
+      const axis = -.62 + Math.sin(this.time * .23) * .42;
+      const core = unit * (.044 + this.progress * .016);
+      const reach = unit * (.105 + ring * .045 + this.progress * .03);
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.rotate(axis + Math.PI / 2);
       ctx.beginPath();
-      for (let i = 0; i <= points; i += 1) {
-        const a = i / points * Math.PI * 2;
-        const fracture = Math.sin(a * 3 + ring * .8 + this.time * .22) * unit * (.003 + ring * .0007);
-        const asymmetry = 1 + Math.sin(a - .8) * .06 * this.progress;
-        const r = (base + fracture) * asymmetry;
-        const x = cx + Math.cos(a + ring * .09) * r * (1 + this.progress * .16);
-        const y = cy + Math.sin(a + ring * .09) * r * (.56 + this.progress * .12);
-        if (!i) ctx.moveTo(x, y); else ctx.lineTo(x, y);
-      }
-      ctx.closePath();
-      ctx.strokeStyle = `rgba(207, 215, 247, ${.19 - ring * .018 + this.progress * .012})`;
-      ctx.lineWidth = ring < 2 ? 1.15 : .62;
-      if (ring > 6) ctx.setLineDash([1.2, 8]);
+      ctx.moveTo(0, -core * .78);
+      ctx.bezierCurveTo(reach * .58, -reach * .42, reach, reach * .05, 0, core * .78);
+      ctx.bezierCurveTo(-reach, reach * .05, -reach * .58, -reach * .42, 0, -core * .78);
+      ctx.strokeStyle = `rgba(187,199,239,${.14 - ring * .011 + this.progress * .018})`;
+      ctx.lineWidth = ring < 2 ? .9 : .5;
+      if (ring > 5) ctx.setLineDash([1, 7]);
       ctx.stroke();
+      ctx.restore();
       ctx.setLineDash([]);
+    }
+
+    beams(cx, cy, unit, pulse) {
+      const ctx = this.ctx;
+      const axis = -.62 + Math.sin(this.time * .23) * .42;
+      const reach = unit * (.43 + this.progress * .1);
+      const neck = unit * (.006 + this.progress * .002);
+      const outer = unit * (.026 + this.progress * .02);
+      const intensity = .22 + pulse * .1 + this.progress * .22;
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.rotate(axis);
+      [-1, 1].forEach((direction) => {
+        const gradient = ctx.createLinearGradient(0, 0, reach * direction, 0);
+        gradient.addColorStop(0, `rgba(232,237,255,${intensity})`);
+        gradient.addColorStop(.24, `rgba(157,174,232,${intensity * .46})`);
+        gradient.addColorStop(1, "rgba(112,132,205,0)");
+        ctx.beginPath();
+        ctx.moveTo(unit * .052 * direction, -neck);
+        ctx.lineTo(reach * direction, -outer);
+        ctx.lineTo(reach * direction, outer);
+        ctx.lineTo(unit * .052 * direction, neck);
+        ctx.closePath();
+        ctx.fillStyle = gradient;
+        ctx.fill();
+        ctx.beginPath();
+        ctx.moveTo(unit * .05 * direction, 0);
+        ctx.lineTo(reach * direction, 0);
+        ctx.strokeStyle = `rgba(235,240,255,${intensity * .62})`;
+        ctx.lineWidth = .55;
+        ctx.stroke();
+      });
+      ctx.restore();
+    }
+
+    network(cx, cy, unit) {
+      if (this.progress < .34) return;
+      const ctx = this.ctx;
+      const count = this.lowPower ? 4 : this.mobile ? 6 : 10;
+      ctx.beginPath();
+      for (let i = 0; i < count; i += 1) {
+        const first = this.nodes[(i * 3) % this.nodes.length];
+        const second = this.nodes[(i * 3 + 7) % this.nodes.length];
+        const a1 = first.angle + this.time * first.speed;
+        const a2 = second.angle + this.time * second.speed;
+        const r1 = first.radius * unit * (.48 + this.progress * .62);
+        const r2 = second.radius * unit * (.48 + this.progress * .62);
+        ctx.moveTo(cx + Math.cos(a1) * r1, cy + Math.sin(a1) * r1 * (.61 + this.progress * .09));
+        ctx.lineTo(cx + Math.cos(a2) * r2, cy + Math.sin(a2) * r2 * (.61 + this.progress * .09));
+      }
+      ctx.strokeStyle = `rgba(172,187,237,${.012 + this.progress * .022})`;
+      ctx.lineWidth = .45;
+      ctx.stroke();
     }
 
     render(timestamp, still = false) {
@@ -209,20 +260,12 @@
 
       ctx.save();
       ctx.globalCompositeOperation = "lighter";
+      this.network(cx, cy, unit);
       const ringCount = Math.round((this.lowPower ? 3 : 4) + this.progress * (this.lowPower ? 4 : this.mobile ? 5 : 7));
       for (let i = 0; i < ringCount; i += 1) this.contour(cx, cy, unit, i);
       const filamentCount = Math.round(this.progress * (this.lowPower ? 7 : this.mobile ? 11 : 18));
       for (let i = 0; i < filamentCount; i += 1) this.filament(cx, cy, i, unit);
-
-      const lineY = cy + Math.sin(this.time * .72) * unit * .006;
-      const scan = ctx.createLinearGradient(cx - unit * .52, lineY, cx + unit * .52, lineY);
-      scan.addColorStop(0, "rgba(214,222,252,0)");
-      scan.addColorStop(.42, `rgba(214,222,252,${.08 + this.progress * .09})`);
-      scan.addColorStop(.495, "rgba(243,246,255,.72)");
-      scan.addColorStop(.505, "rgba(243,246,255,.72)");
-      scan.addColorStop(.58, `rgba(214,222,252,${.08 + this.progress * .09})`);
-      scan.addColorStop(1, "rgba(214,222,252,0)");
-      ctx.beginPath(); ctx.moveTo(cx - unit * .52, lineY); ctx.lineTo(cx + unit * .52, lineY); ctx.strokeStyle = scan; ctx.lineWidth = .7; ctx.stroke();
+      this.beams(cx, cy, unit, pulse);
 
       this.nodes.slice(0, Math.round(12 + this.progress * this.nodes.length)).forEach((node) => {
         const a = node.angle + this.time * node.speed;
@@ -233,13 +276,30 @@
         ctx.fillStyle = `rgba(210,219,250,${.12 + this.progress * .18})`; ctx.fill();
       });
 
-      const core = ctx.createRadialGradient(cx - unit * .008, cy - unit * .008, 0, cx, cy, unit * .055);
+      const coreRadius = unit * (.044 + this.progress * .016);
+      const core = ctx.createRadialGradient(cx - coreRadius * .32, cy - coreRadius * .28, 0, cx, cy, coreRadius);
       core.addColorStop(0, "rgba(255,255,255,.98)");
-      core.addColorStop(.08, "rgba(207,216,255,.88)");
-      core.addColorStop(.3, "rgba(93,108,170,.48)");
-      core.addColorStop(1, "rgba(20,24,36,0)");
+      core.addColorStop(.22, "rgba(225,231,252,.96)");
+      core.addColorStop(.58, "rgba(126,140,190,.9)");
+      core.addColorStop(.9, "rgba(40,47,69,.82)");
+      core.addColorStop(1, "rgba(183,196,243,.28)");
       ctx.fillStyle = core;
-      ctx.beginPath(); ctx.arc(cx, cy, unit * (.051 + pulse * .0025), 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(cx, cy, coreRadius, 0, Math.PI * 2); ctx.fill();
+      ctx.save();
+      ctx.beginPath(); ctx.arc(cx, cy, coreRadius * .96, 0, Math.PI * 2); ctx.clip();
+      for (let stripe = -2; stripe <= 2; stripe += 1) {
+        ctx.beginPath();
+        ctx.ellipse(cx, cy + stripe * coreRadius * .27, coreRadius * .94, coreRadius * (.12 + Math.abs(stripe) * .025), 0, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(235,239,252,${.08 + (2 - Math.abs(stripe)) * .025})`;
+        ctx.lineWidth = .6;
+        ctx.stroke();
+      }
+      ctx.restore();
+      ctx.beginPath();
+      ctx.arc(cx, cy, coreRadius * 1.04, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(221,229,255,${.32 + pulse * .12})`;
+      ctx.lineWidth = .75;
+      ctx.stroke();
       ctx.restore();
     }
 
@@ -258,11 +318,16 @@
     const beats = $$(".story-beat");
     const label = $("#phase-label");
     const index = $("#phase-index");
+    const rail = $("#signal-progress");
+    const markers = $$('[data-story-marker]');
     const updateProgress = () => {
       const viewportHeight = window.visualViewport?.height || innerHeight;
       const rect = narrative.getBoundingClientRect();
       const travel = Math.max(1, narrative.offsetHeight - viewportHeight);
-      field?.setProgress(Math.min(1, Math.max(0, -rect.top / travel)));
+      const progress = Math.min(1, Math.max(0, -rect.top / travel));
+      field?.setProgress(progress);
+      rail?.style.setProperty("--story-progress", progress.toFixed(4));
+      rail?.classList.toggle("is-visible", rect.top < viewportHeight * .25 && rect.bottom > viewportHeight * .75);
       let closest = beats[0];
       let distance = Infinity;
       beats.forEach((beat) => {
@@ -270,14 +335,39 @@
         const current = Math.abs(beatRect.top + beatRect.height / 2 - viewportHeight / 2);
         if (current < distance) { distance = current; closest = beat; }
       });
+      const activeIndex = beats.indexOf(closest);
       beats.forEach((beat) => beat.classList.toggle("is-active", beat === closest));
+      markers.forEach((marker, markerIndex) => marker.classList.toggle("is-active", markerIndex === activeIndex));
       label.textContent = closest.dataset.label;
-      index.textContent = String(beats.indexOf(closest)).padStart(2, "0");
+      index.textContent = String(activeIndex).padStart(2, "0");
     };
     updateProgress();
     addEventListener("scroll", updateProgress, { passive: true });
     addEventListener("resize", updateProgress, { passive: true });
     addEventListener("neivum:viewport", updateProgress, { passive: true });
+  }
+
+  function setupArchitectureFlow() {
+    const architecture = $(".architecture");
+    const sequence = $(".architecture-sequence");
+    if (!architecture || !sequence) return;
+    let queued = false;
+    const update = () => {
+      queued = false;
+      const rect = architecture.getBoundingClientRect();
+      const viewport = window.visualViewport?.height || innerHeight;
+      const raw = (viewport * .78 - rect.top) / Math.max(1, rect.height * .72);
+      const progress = .25 + Math.min(1, Math.max(0, raw)) * .75;
+      sequence.style.setProperty("--architecture-progress", progress.toFixed(4));
+    };
+    const request = () => {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(update);
+    };
+    update();
+    addEventListener("scroll", request, { passive: true });
+    addEventListener("resize", request, { passive: true });
   }
 
   function setupSectionReveal() {
@@ -325,8 +415,10 @@
     $("#language-toggle").addEventListener("click", () => setLanguage(language === "ru" ? "en" : "ru"));
     setLanguage(language);
     const canvas = $("#pulsar-canvas");
-    const field = canvas ? new PulsarField(canvas) : null;
+    const Renderer = window.NEIVUM_PULSAR?.Renderer;
+    const field = canvas ? (Renderer ? new Renderer(canvas, PulsarField) : new PulsarField(canvas)) : null;
     setupStory(field);
+    setupArchitectureFlow();
     setupSectionReveal();
     setupForm();
   }
