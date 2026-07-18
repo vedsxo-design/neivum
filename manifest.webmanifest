@@ -1,0 +1,18 @@
+{
+  "name": "NEIVUM 0.1 — PULSAR",
+  "short_name": "NEIVUM",
+  "description": "Первый сигнал развивающегося интеллекта от OrivantAI.",
+  "id": "./",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#030405",
+  "theme_color": "#050607",
+  "lang": "ru",
+  "icons": [
+    { "src": "neivum-assets/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "neivum-assets/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
+

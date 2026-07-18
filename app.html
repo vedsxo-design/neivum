@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ru" data-lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#07090b">
+  <meta name="color-scheme" content="dark">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="NEIVUM">
+  <meta name="description" content="Интерфейс NEIVUM 0.1 — PULSAR. Демонстрационный режим AI-платформы OrivantAI.">
+  <meta name="robots" content="noindex,nofollow">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="NEIVUM 0.1 — Interface Demo">
+  <meta property="og:description" content="Отдельный интерфейс PULSAR от OrivantAI с прозрачным локальным демонстрационным режимом.">
+  <meta property="og:image" content="neivum-assets/NEIVUM_og_cover.png">
+  <meta property="og:site_name" content="NEIVUM by OrivantAI">
+  <link rel="canonical" href="./app.html" data-replace-in-production>
+  <link rel="manifest" href="manifest.webmanifest">
+  <title>NEIVUM 0.1 — Interface Demo</title>
+  <link rel="icon" href="neivum-assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="neivum-assets/apple-touch-icon.png">
+  <script src="neivum-assets/device.js"></script>
+  <link rel="stylesheet" href="neivum-assets/app.css">
+  <script defer src="neivum-assets/core.js"></script>
+  <script defer src="neivum-assets/app.js"></script>
+</head>
+<body class="app-page">
+  <a class="skip-link" href="#conversation" data-i18n="skip">Перейти к диалогу</a>
+
+  <div class="app-entry" aria-hidden="true"><div></div><span>NEIVUM 0.1 / PULSAR</span></div>
+
+  <div class="app-shell">
+    <aside class="app-sidebar" id="app-sidebar" aria-label="История диалогов">
+      <div class="sidebar-head">
+        <a class="app-wordmark" href="index.html" aria-label="Вернуться на сайт NEIVUM">
+          <svg viewBox="0 0 1000 1000" aria-hidden="true"><path fill-rule="evenodd" d="M125 491C237 483 310 456 343 407c38-56 40-120 18-186-17-51-45-99-86-142l562 412H125Zm159 0c75-22 134-83 166-175 53 51 91 109 107 175H284ZM125 509h712c-90 9-158 36-199 85-53 63-60 162 9 327-76-107-140-209-217-283-80-77-171-117-305-129Zm326 0h281c-72 29-118 81-133 165-47-68-94-123-148-165Z"/></svg>
+          <span>NEIVUM</span>
+        </a>
+        <button class="sidebar-close" id="sidebar-close" type="button" aria-label="Закрыть боковую панель">×</button>
+      </div>
+
+      <button class="new-thread" id="new-thread" type="button"><span data-i18n="newConversation">Новый диалог</span><i>＋</i></button>
+
+      <div class="thread-section">
+        <p class="app-micro" data-i18n="localHistory">Локальная история</p>
+        <ul class="thread-list" id="thread-list"></ul>
+        <p class="empty-history" id="empty-history" data-i18n="emptyHistory">История появится после первого сигнала.</p>
+      </div>
+
+      <div class="sidebar-foot">
+        <div class="pulsar-status"><span><i></i>PULSAR</span><strong>ACTIVE</strong></div>
+        <button class="sidebar-setting" id="settings-open" type="button"><span data-i18n="settings">Настройки</span><i>⌘</i></button>
+        <a class="back-site" href="index.html"><span data-i18n="backSite">Официальный сайт</span><i>↖</i></a>
+        <p class="app-micro">NEIVUM 0.1 / INTERFACE DEMO<br>by OrivantAI</p>
+      </div>
+    </aside>
+
+    <div class="sidebar-scrim" id="sidebar-scrim" aria-hidden="true"></div>
+
+    <main class="app-main" id="conversation">
+      <header class="app-topbar">
+        <div class="topbar-left">
+          <button class="sidebar-toggle" id="sidebar-toggle" type="button" aria-expanded="false" aria-controls="app-sidebar" aria-label="Открыть историю"><span></span></button>
+          <div class="model-readout"><i></i><strong>PULSAR</strong><span>/ NEIVUM 0.1</span></div>
+        </div>
+        <div class="topbar-right">
+          <span class="demo-label">INTERFACE DEMO</span>
+          <button class="app-sound" type="button" data-sound-toggle aria-pressed="false"><span class="sound-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span data-sound-state>SOUND OFF</span></button>
+          <button class="app-language" id="app-language" type="button" aria-label="Переключить язык">EN</button>
+          <button class="top-settings" id="top-settings" type="button" aria-label="Открыть настройки">···</button>
+        </div>
+      </header>
+
+      <section class="welcome-view" id="welcome-view" aria-labelledby="welcome-title">
+        <div class="welcome-signal" aria-hidden="true">
+          <span class="signal-core"></span><i></i><i></i><i></i><i></i>
+        </div>
+        <p class="app-micro">NEIVUM 0.1 / PULSAR ACTIVE</p>
+        <h1 id="welcome-title" data-i18n="welcomeTitle">Какой сигнал вы хотите передать?</h1>
+        <p class="welcome-copy" data-i18n="welcomeBody">Начните новый диалог или выберите направление. Сейчас открыт прозрачный демонстрационный режим без подключения к реальной AI-модели.</p>
+        <div class="starter-prompts" id="starter-prompts">
+          <button type="button" data-prompt="text"><span>01</span><strong data-i18n="promptText">Работа с текстом</strong><i>↗</i></button>
+          <button type="button" data-prompt="code"><span>02</span><strong data-i18n="promptCode">Программный код</strong><i>↗</i></button>
+          <button type="button" data-prompt="analysis"><span>03</span><strong data-i18n="promptAnalysis">Анализ информации</strong><i>↗</i></button>
+          <button type="button" data-prompt="idea"><span>04</span><strong data-i18n="promptIdea">Исследование идеи</strong><i>↗</i></button>
+        </div>
+      </section>
+
+      <section class="conversation-view" id="conversation-view" aria-label="Диалог" hidden>
+        <div class="conversation-stream" id="conversation-stream" role="log" aria-live="polite"></div>
+      </section>
+
+      <form class="composer" id="composer">
+        <div class="composer-box">
+          <textarea id="message-input" rows="1" maxlength="4000" enterkeyhint="send" aria-label="Сообщение" data-i18n-placeholder="messagePlaceholder" placeholder="Передайте сигнал…"></textarea>
+          <div class="composer-actions">
+            <span class="input-mode">PULSAR / DEMO</span>
+            <button class="send-message" type="submit" aria-label="Отправить сообщение">↑</button>
+          </div>
+        </div>
+        <p class="composer-disclosure" data-i18n="demoDisclosure">Подготовленные локальные ответы. Реальная модель и внешний API не подключены.</p>
+      </form>
+    </main>
+  </div>
+
+  <section class="settings-panel" id="settings-panel" role="dialog" aria-modal="true" aria-labelledby="settings-title" aria-hidden="true" inert>
+    <button class="settings-scrim" id="settings-scrim" type="button" aria-label="Закрыть настройки"></button>
+    <div class="settings-sheet">
+      <div class="settings-head"><div><p class="app-micro">NEIVUM / INTERFACE</p><h2 id="settings-title" data-i18n="settings">Настройки</h2></div><button id="settings-close" type="button" aria-label="Закрыть настройки">×</button></div>
+      <div class="setting-row"><div><strong data-i18n="soundscape">Музыкальная атмосфера</strong><small data-i18n="soundscapeNote">Оригинальный 96-секундный трек NEIVUM</small></div><button class="settings-sound" type="button" data-sound-toggle aria-pressed="false"><span data-sound-state>SOUND OFF</span></button></div>
+      <div class="setting-row volume-row"><div><strong data-i18n="volume">Громкость</strong><small data-i18n="volumeNote">Музыка и интерфейсные сигналы</small></div><input type="range" min="0" max="100" value="34" data-sound-volume aria-label="Громкость"></div>
+      <div class="setting-row"><div><strong data-i18n="language">Язык интерфейса</strong><small>Русский / English</small></div><button class="settings-language" id="settings-language" type="button">EN</button></div>
+      <div class="setting-row device-setting"><div><strong data-i18n="deviceMode">Режим устройства</strong><small data-i18n="deviceNote">Проверяется до запуска визуальных эффектов</small></div><output data-device-state>DEVICE CHECK / INITIALIZING</output></div>
+      <div class="setting-note"><span>INTERFACE DEMO</span><p data-i18n="privacyNote">Диалоги хранятся только в localStorage этого браузера. Они не отправляются OrivantAI или сторонним сервисам.</p></div>
+    </div>
+  </section>
+
+  <noscript><div class="noscript">Для работы интерфейса NEIVUM необходим JavaScript.</div></noscript>
+</body>
+</html>
