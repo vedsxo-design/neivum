@@ -1,180 +1,108 @@
-# NEIVUM 0.1 / PULSAR
+# vinext-starter
 
-Официальная статическая цифровая экосистема NEIVUM 0.1 от OrivantAI. В публичной сборке представлен только PULSAR — первый устойчивый сигнал развивающейся AI-платформы.
+A clean full-stack starter running on
+[vinext](https://github.com/cloudflare/vinext), with optional Cloudflare D1 and
+Drizzle support.
 
-Проект состоит из трёх независимых, но визуально связанных страниц:
+## Prerequisites
 
-- `index.html` — официальный сайт и история первого сигнала;
-- `about.html` — происхождение OrivantAI, NEIVUM 0.1 и официальный Launch Film;
-- `app.html` — отдельный интерфейс NEIVUM с честно обозначенным локальным demo-режимом.
+- Node.js `>=22.13.0`
+- Linux with `flock`, `curl`, and GNU `timeout`
 
-Сборка работает без npm, сборщика, фреймворков, CDN, удалённых шрифтов и внешних runtime-зависимостей. Единственная сеть, к которой страница обращается по действию пользователя, — privacy-enhanced YouTube-плеер официального трейлера.
+## Sites Lifecycle
 
-## Запуск
+The Sites lifecycle CLI runs the locked dependency install before returning this checkout. Edit the source under `app/`, then checkpoint when a coherent milestone is ready to inspect or share. The remote Sites builder runs `npm run build` against the pushed commit. Do not repeat install or build as a normal pre-checkpoint step.
 
-Рекомендуемый способ:
+This starter does not use `wrangler.jsonc`.
 
-```bash
-python3 -m http.server 8080
+`install:ci` is intentionally a single, non-retrying `npm ci`. It refuses a concurrent install for the same project, consumes a matching image-seeded npm cache with `--prefer-offline` while retaining registry fallback for a missing cache object, otherwise downloads and verifies the complete vinext tarball recorded in `package-lock.json`, limits npm to one socket, and terminates a stalled install. `build` applies a short timeout and then validates the Sites artifact. These helpers target Linux and use GNU `timeout`; they are not native macOS scripts.
+
+Scripts that need writable project-scoped home, npm, XDG, and temporary paths use `scripts/sites-env.sh`. The `dev` and `start` scripts honor the caller's runtime environment and keep Wrangler logs inside the checkout. The generated `.sites-runtime/` directory is disposable and ignored by Git.
+
+## Included Shape
+
+- edit site code under `app/`
+- `app/chatgpt-auth.ts` provides optional dispatch-owned ChatGPT sign-in helpers
+- `.openai/hosting.json` declares optional Sites D1 and R2 bindings
+- `vite.config.ts` simulates declared bindings for local development
+- `db/index.ts` reads the D1 binding from the Cloudflare Worker environment
+- `db/schema.ts` starts intentionally empty
+- `examples/d1/` contains an optional D1 example surface
+- `drizzle.config.ts` supports local migration generation when needed
+
+## Workspace Auth Headers
+
+OpenAI workspace sites can read the current user's email from
+`oai-authenticated-user-email`.
+
+SIWC-authenticated workspace sites may also receive
+`oai-authenticated-user-full-name` when the user's SIWC profile has a non-empty
+`name` claim. The full-name value is percent-encoded UTF-8 and is accompanied by
+`oai-authenticated-user-full-name-encoding: percent-encoded-utf-8`.
+
+Treat the full name as optional and fall back to email when it is absent:
+
+```tsx
+import { headers } from "next/headers";
+
+export default async function Home() {
+  const requestHeaders = await headers();
+  const email = requestHeaders.get("oai-authenticated-user-email");
+  const encodedFullName = requestHeaders.get("oai-authenticated-user-full-name");
+  const fullName =
+    encodedFullName &&
+    requestHeaders.get("oai-authenticated-user-full-name-encoding") ===
+      "percent-encoded-utf-8"
+      ? decodeURIComponent(encodedFullName)
+      : null;
+
+  const displayName = fullName ?? email;
+  // ...
+}
 ```
 
-Windows PowerShell:
+## Optional Dispatch-Owned ChatGPT Sign-In
 
-```powershell
-py -m http.server 8080
-```
+Import the ready-to-use helpers from `app/chatgpt-auth.ts` when the site needs
+optional or required ChatGPT sign-in:
 
-Откройте:
+- Use `getChatGPTUser()` for optional signed-in UI.
+- Use `requireChatGPTUser(returnTo)` for server-rendered pages that should send
+  anonymous visitors through Sign in with ChatGPT.
+- Use `chatGPTSignInPath(returnTo)` and `chatGPTSignOutPath(returnTo)` for
+  browser links or actions.
+- Pass a same-origin relative `returnTo` path for the destination after sign-in
+  or sign-out. The helper validates and safely encodes it.
+- Mark protected pages with `export const dynamic = "force-dynamic"` because
+  they depend on per-request identity headers.
 
-- `http://localhost:8080/` — официальный сайт;
-- `http://localhost:8080/about.html` — OrivantAI и Launch Film;
-- `http://localhost:8080/app.html` — интерфейс NEIVUM.
+Dispatch owns `/signin-with-chatgpt`, `/signout-with-chatgpt`, `/callback`, the
+OAuth cookies, and identity header injection. Do not implement app routes for
+those reserved paths. Routes that do not import and call the helper remain
+anonymous-compatible.
 
-Для быстрой локальной проверки можно открыть `index.html` напрямую. Service Worker и установка PWA работают только через HTTP(S).
+SIWC establishes identity only; it does not prove workspace membership. Use the
+Sites hosting platform's access policy controls for workspace-wide restrictions,
+or enforce explicit server-side membership or allowlist checks.
 
-### Телефон в одной Wi-Fi-сети
+Use SIWC for account pages, user-specific dashboards, saved records, and write
+actions tied to the current ChatGPT user. Leave public content anonymous.
 
-1. Распакуйте проект на Windows-компьютере.
-2. Запустите `START_NEIVUM_MOBILE.bat`.
-3. Разрешите Python доступ для частной сети, если Windows Firewall задаст вопрос.
-4. Подключите телефон к той же Wi-Fi-сети.
-5. Откройте показанный адрес, например `http://192.168.1.24:8080/`.
+## Diagnostic Commands
 
-### GitHub Pages
+- `npm run install:ci`: perform the one bounded lockfile install
+- `npm run dev`: start the Vite/Vinext development server
+- `npm run build`: build and validate the deployable Sites artifact
+- `npm run start`: start the built Vinext application
+- `npm test`: build, validate, and verify the rendered development-preview metadata
+- `npm run validate:artifact`: recheck an existing artifact's manifest and ESM `default.fetch` export
+- `npm run db:generate`: generate Drizzle migrations after schema changes
 
-1. Загрузите в корень ветки `main` именно содержимое папки проекта, а не ZIP.
-2. Проверьте, что `index.html`, `about.html`, `app.html`, `sw.js` и папка `neivum-assets` находятся в корне репозитория.
-3. В `Settings → Pages` выберите `Deploy from a branch`, `main`, `/ (root)`.
-4. После публикации выполните принудительную перезагрузку. Service Worker использует кэш `neivum-0.1-launch-v3` и удаляет предыдущие сборки `neivum-*`.
+Use build and validation commands for targeted diagnosis after a remote failure, not as part of the normal checkpoint path.
 
-Все внутренние URL относительные и совместимы с project site GitHub Pages.
+The timeout defaults can be overridden for a controlled canary with `SITES_INSTALL_TIMEOUT`, `SITES_INSTALL_KILL_AFTER`, `SITES_BUILD_TIMEOUT`, and `SITES_BUILD_KILL_AFTER`. A timeout fails the command; the helpers never retry an unchanged install or build.
 
-## Структура
+## Learn More
 
-```text
-NEIVUM-0.1-Maximum/
-├── index.html
-├── about.html
-├── app.html
-├── manifest.webmanifest
-├── sw.js
-├── START_NEIVUM_MOBILE.bat
-├── neivum-assets/
-│   ├── device.js                 # FULL / MOBILE / SAFE capability profile
-│   ├── core.js                   # звук, storage, переходы, Service Worker
-│   ├── pulsar.js                 # WebGL2 renderer и локальные GLSL-шейдеры
-│   ├── site.css / site.js        # официальный сайт и Canvas fallback
-│   ├── about.css / about.js      # OrivantAI, Launch Film и click-to-load player
-│   ├── app.css / app.js          # отдельный AI-интерфейс и локальные диалоги
-│   ├── audio/
-│   │   ├── neivum-ambient.ogg
-│   │   ├── pulsar-activate.ogg
-│   │   ├── interface-open.ogg
-│   │   ├── message-send.ogg
-│   │   └── message-receive.ogg
-│   ├── neivum-launch-film-poster.webp
-│   ├── neivum-about-og.png
-│   ├── NEIVUM_YouTube_Banner_2560x1440.png
-│   ├── NEIVUM_og_cover.png
-│   ├── favicon.svg
-│   └── PWA icons
-├── source/NEIVUM_symbol_on_dark_4096.png
-├── PRODUCTION_CHECKLIST.md
-├── CHANGELOG.md
-└── README.md
-```
-
-## Визуальная система PULSAR
-
-`neivum-assets/pulsar.js` рисует процедурную нейтронную звезду полноэкранным WebGL2-шейдером:
-
-- компактное холодное ядро с процедурной поверхностью;
-- наклонённая вращающаяся магнитная ось;
-- два противоположных направленных луча;
-- дипольные линии магнитного поля;
-- тонкий экваториальный плазменный слой;
-- локальная линза, корона и ограниченные потоки частиц;
-- реакция на курсор и прогресс истории без scroll-jacking.
-
-Режим выбирается до запуска визуализации в `device.js`:
-
-- `FULL` — WebGL2, расширенная магнитосфера, ограниченный DPR, до 60 FPS;
-- `MOBILE` — упрощённый WebGL2, сниженный DPR, 30 FPS;
-- `SAFE` — Canvas 2D, минимум blur и частиц, DPR 1;
-- `prefers-reduced-motion` — почти статичный завершённый Canvas-образ.
-
-При потере WebGL-контекста рендер автоматически заменяется Canvas-fallback. WebGL-ресурсы освобождаются при уходе со страницы, а анимация останавливается в неактивной вкладке.
-
-Чтобы изменить объект, редактируйте `FRAGMENT_SHADER` в `pulsar.js`. Canvas-геометрия главной находится в `PulsarField` (`site.js`), About — в `AboutFallbackPulsar` (`about.js`), приложения — в `CompactSignal` (`app.js`).
-
-## Launch Film
-
-Официальный трейлер: `https://youtu.be/l2cALhZG3f8`.
-
-Он размещён только в `about.html#launch-film`. До нажатия PLAY iframe отсутствует: браузер загружает локальный WebP-постер. После прямого действия пользователя `about.js` создаёт iframe:
-
-```text
-https://www.youtube-nocookie.com/embed/l2cALhZG3f8
-```
-
-Плеер сохраняет 16:9, имеет доступные loading/status-состояния, кнопку закрытия и прямую fallback-ссылку на YouTube. Если атмосфера NEIVUM звучала, она плавно затухает перед запуском фильма. Возврат музыки выполняется только отдельной кнопкой пользователя.
-
-Исходный баннер: `neivum-assets/NEIVUM_YouTube_Banner_2560x1440.png`. Оптимизированный постер: `neivum-assets/neivum-launch-film-poster.webp`.
-
-## Музыка и звук
-
-`neivum-assets/audio/neivum-ambient.ogg` — оригинальная 96-секундная композиция, созданная для NEIVUM. Чужая музыка и сторонние сэмплы не используются.
-
-- при первом посещении звук выключен;
-- запуск только через `SOUND OFF`;
-- доступно плавное включение/выключение и регулирование громкости;
-- состояние, громкость и позиция сохраняются между страницами;
-- аудио использует `preload="none"` и не загружается заранее;
-- интерфейсные сигналы также локальные.
-
-Общая логика находится в `SoundSystem` файла `core.js`. Методы `duckForMedia()` и `restoreAfterMedia()` координируют музыку и трейлер.
-
-## AI-приложение
-
-`app.html` не является секцией лендинга. Реализованы:
-
-- создание, выбор и удаление локальных диалогов;
-- история в `localStorage`;
-- многострочный composer и отправка по `Enter`;
-- стартовые направления и подготовленные локальные ответы;
-- RU/EN, мобильная панель, настройки, звук и громкость;
-- адаптация Visual Viewport, safe-area и экранной клавиатуры;
-- маркировка `INTERFACE DEMO` и `noindex`.
-
-Сообщения не отправляются OrivantAI или сторонним сервисам. Текущие ключи хранения: `neivum.threads.v1` и `neivum.activeThread`.
-
-## Подключение настоящего NEIVUM API
-
-Точка интеграции в начале `app.js`:
-
-```js
-const API_CONFIG = Object.freeze({ endpoint: null, mode: "demo" });
-```
-
-1. Создайте защищённый backend/proxy с HTTPS, авторизацией, rate limiting и валидацией.
-2. На backend подключите модель и секреты.
-3. Укажите публичный endpoint в `API_CONFIG.endpoint` и переключите режим только после готовности backend.
-4. Адаптируйте контракт `NeivumApiProvider.send()`; для streaming добавьте серверный протокол и `AbortController`.
-5. Уберите `INTERFACE DEMO` только после фактического подключения и QA.
-
-Никогда не размещайте API-ключ во frontend-коде.
-
-## Тексты, язык и версия
-
-- главная: разметка `index.html`, переводы `site.js`;
-- About: разметка `about.html`, переводы `about.js`;
-- приложение: разметка `app.html`, переводы `app.js`;
-- палитра и базовая типографика: переменные в начале `site.css` и `app.css`;
-- метаданные: `<head>` каждой страницы;
-- версия: поиск по `NEIVUM 0.1`, `BUILD 0.1` и `version: "0.1"`.
-
-После изменения версии синхронно обновите HTML, переводы, API payload, Open Graph, manifest, Service Worker и документацию.
-
-## Production
-
-Перед публичным релизом выполните [PRODUCTION_CHECKLIST.md](PRODUCTION_CHECKLIST.md). Главные обязательные действия: заменить placeholder canonical на абсолютный домен, настроить HTTP security headers, проверить реальные телефоны/скринридеры и подключать сбор email/API только после появления backend и юридических документов.
+- [vinext Documentation](https://github.com/cloudflare/vinext)
+- [Drizzle D1 Guide](https://orm.drizzle.team/docs/get-started/d1-new)
