@@ -29,18 +29,22 @@
 <body class="app-page">
   <a class="skip-link" href="#conversation" data-i18n="skip">Перейти к диалогу</a>
 
-  <div class="app-entry" aria-hidden="true"><div></div><span>NEIVUM 0.1 / PULSAR</span></div>
-
-  <div class="app-page-transition" data-page-transition aria-hidden="true">
-    <div class="app-transition-line"></div>
-    <svg viewBox="0 0 1000 1000"><path fill-rule="evenodd" d="M125 491C237 483 310 456 343 407c38-56 40-120 18-186-17-51-45-99-86-142l562 412H125Zm159 0c75-22 134-83 166-175 53 51 91 109 107 175H284ZM125 509h712c-90 9-158 36-199 85-53 63-60 162 9 327-76-107-140-209-217-283-80-77-171-117-305-129Zm326 0h281c-72 29-118 81-133 165-47-68-94-123-148-165Z"/></svg>
-    <span>RETURNING TO NEIVUM 0.1</span>
+  <div class="page-transition" data-page-transition aria-hidden="true">
+    <div class="transition-grid" aria-hidden="true"></div>
+    <div class="transition-orbit transition-orbit-a" aria-hidden="true"></div>
+    <div class="transition-orbit transition-orbit-b" aria-hidden="true"></div>
+    <div class="transition-line" aria-hidden="true"></div>
+    <svg viewBox="0 0 1000 1000" aria-hidden="true"><path fill-rule="evenodd" d="M125 491C237 483 310 456 343 407c38-56 40-120 18-186-17-51-45-99-86-142l562 412H125Zm159 0c75-22 134-83 166-175 53 51 91 109 107 175H284ZM125 509h712c-90 9-158 36-199 85-53 63-60 162 9 327-76-107-140-209-217-283-80-77-171-117-305-129Zm326 0h281c-72 29-118 81-133 165-47-68-94-123-148-165Z"/></svg>
+    <div class="transition-copy"><span>NEIVUM 0.1 / PULSAR</span><strong data-transition-status>SIGNAL / RECONNECTING</strong></div>
+    <span class="transition-coordinate">PLSR—001&nbsp;&nbsp;·&nbsp;&nbsp;NVM/S001</span>
   </div>
+
+  <div class="app-entry" aria-hidden="true"><div></div><span>NEIVUM 0.1 / PULSAR</span></div>
 
   <div class="app-shell">
     <aside class="app-sidebar" id="app-sidebar" aria-label="История диалогов">
       <div class="sidebar-head">
-        <a class="app-wordmark" href="index.html" data-transition-link data-transition-label="RETURNING TO NEIVUM 0.1" aria-label="Вернуться на сайт NEIVUM">
+        <a class="app-wordmark" href="index.html" data-back-site aria-label="Вернуться на сайт NEIVUM">
           <svg viewBox="0 0 1000 1000" aria-hidden="true"><path fill-rule="evenodd" d="M125 491C237 483 310 456 343 407c38-56 40-120 18-186-17-51-45-99-86-142l562 412H125Zm159 0c75-22 134-83 166-175 53 51 91 109 107 175H284ZM125 509h712c-90 9-158 36-199 85-53 63-60 162 9 327-76-107-140-209-217-283-80-77-171-117-305-129Zm326 0h281c-72 29-118 81-133 165-47-68-94-123-148-165Z"/></svg>
           <span>NEIVUM</span>
         </a>
@@ -58,7 +62,7 @@
       <div class="sidebar-foot">
         <div class="pulsar-status"><span><i></i>PULSAR</span><strong>ACTIVE</strong></div>
         <button class="sidebar-setting" id="settings-open" type="button"><span data-i18n="settings">Настройки</span><i>⌘</i></button>
-        <a class="back-site" href="index.html" data-transition-link data-transition-label="RETURNING TO NEIVUM 0.1"><span data-i18n="backSite">Официальный сайт</span><i>↖</i></a>
+        <a class="back-site" href="index.html" data-back-site><span data-i18n="backSite">Официальный сайт</span><i>↖</i></a>
         <p class="app-micro">NEIVUM 0.1 / INTERFACE DEMO<br>by OrivantAI</p>
       </div>
     </aside>
@@ -84,7 +88,7 @@
       <section class="welcome-view" id="welcome-view" aria-labelledby="welcome-title">
         <div class="welcome-signal" aria-hidden="true">
           <canvas id="app-signal-canvas"></canvas>
-          <i></i><i></i><i></i><i></i>
+          <span class="signal-core"></span><i></i><i></i><i></i><i></i>
         </div>
         <p class="app-micro">NEIVUM 0.1 / PULSAR ACTIVE</p>
         <h1 id="welcome-title" data-i18n="welcomeTitle">Какой сигнал вы хотите передать?</h1>
@@ -97,7 +101,7 @@
         </div>
       </section>
 
-      <div class="app-telemetry" aria-hidden="true"><span>PLSR—001</span><i></i><span>SIGNAL / READY</span></div>
+      <div class="app-telemetry" aria-hidden="true"><span>PLSR—001</span><i></i><span id="signal-status" data-signal-status>SIGNAL / READY</span></div>
 
       <section class="conversation-view" id="conversation-view" aria-label="Диалог" hidden>
         <div class="conversation-stream" id="conversation-stream" role="log" aria-live="polite"></div>

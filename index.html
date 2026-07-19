@@ -25,7 +25,6 @@
   <script src="neivum-assets/device.js"></script>
   <link rel="stylesheet" href="neivum-assets/site.css">
   <script defer src="neivum-assets/core.js"></script>
-  <script defer src="neivum-assets/pulsar.js"></script>
   <script defer src="neivum-assets/site.js"></script>
 </head>
 <body class="site-page">
@@ -43,7 +42,7 @@
         <a href="#pulsar" data-i18n="navPulsar">PULSAR</a>
         <a href="#architecture" data-i18n="navArchitecture">Architecture</a>
         <a href="#early-access" data-i18n="navEarly">Early Access</a>
-        <a href="about.html" data-transition-link data-transition-label="OPENING ORIVANTAI" data-i18n="navCompany">About OrivantAI</a>
+        <a href="#orivant" data-i18n="navCompany">OrivantAI</a>
       </nav>
 
       <div class="header-tools">
@@ -64,22 +63,26 @@
       <a href="#pulsar" data-i18n="navPulsar">PULSAR</a>
       <a href="#architecture" data-i18n="navArchitecture">Architecture</a>
       <a href="#early-access" data-i18n="navEarly">Early Access</a>
-      <a href="about.html" data-transition-link data-transition-label="OPENING ORIVANTAI" data-i18n="navCompany">About OrivantAI</a>
+      <a href="#orivant" data-i18n="navCompany">OrivantAI</a>
     </div>
     <a class="open-app mobile-open-app" href="app.html" data-open-app><span data-i18n="openNeivum">Открыть NEIVUM</span><i>↗</i></a>
     <p class="micro">ORIVANTAI / NEIVUM SYSTEM<br>BUILD 0.1 / PULSAR ACTIVE<br><span data-device-state>DEVICE CHECK / INITIALIZING</span></p>
   </nav>
 
   <div class="page-transition" data-page-transition aria-hidden="true">
-    <div class="transition-line"></div>
-    <svg viewBox="0 0 1000 1000"><path fill-rule="evenodd" d="M125 491C237 483 310 456 343 407c38-56 40-120 18-186-17-51-45-99-86-142l562 412H125Zm159 0c75-22 134-83 166-175 53 51 91 109 107 175H284ZM125 509h712c-90 9-158 36-199 85-53 63-60 162 9 327-76-107-140-209-217-283-80-77-171-117-305-129Zm326 0h281c-72 29-118 81-133 165-47-68-94-123-148-165Z"/></svg>
-    <span>ENTERING NEIVUM 0.1</span>
+    <div class="transition-grid" aria-hidden="true"></div>
+    <div class="transition-orbit transition-orbit-a" aria-hidden="true"></div>
+    <div class="transition-orbit transition-orbit-b" aria-hidden="true"></div>
+    <div class="transition-line" aria-hidden="true"></div>
+    <svg viewBox="0 0 1000 1000" aria-hidden="true"><path fill-rule="evenodd" d="M125 491C237 483 310 456 343 407c38-56 40-120 18-186-17-51-45-99-86-142l562 412H125Zm159 0c75-22 134-83 166-175 53 51 91 109 107 175H284ZM125 509h712c-90 9-158 36-199 85-53 63-60 162 9 327-76-107-140-209-217-283-80-77-171-117-305-129Zm326 0h281c-72 29-118 81-133 165-47-68-94-123-148-165Z"/></svg>
+    <div class="transition-copy"><span>NEIVUM 0.1 / PULSAR</span><strong data-transition-status>SIGNAL / ESTABLISHING</strong></div>
+    <span class="transition-coordinate">PLSR—001&nbsp;&nbsp;·&nbsp;&nbsp;NVM/S001</span>
   </div>
 
   <main id="main">
     <section class="signal-narrative" id="platform" aria-label="История первого сигнала">
       <div class="signal-stage" aria-hidden="true">
-        <canvas id="pulsar-canvas">Научно вдохновлённая визуализация нейтронной звезды PULSAR с магнитосферой и направленными лучами.</canvas>
+        <canvas id="pulsar-canvas">Абстрактная вычислительная структура PULSAR.</canvas>
         <div class="stage-aperture"><i></i><i></i><i></i></div>
         <div class="stage-spectrum"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
         <div class="stage-vignette"></div>
@@ -110,6 +113,7 @@
             <h1>NEIVUM<span>0.1</span></h1>
             <p class="pulsar-name">PULSAR</p>
             <p class="hero-signal-id micro">SIGNAL / PLSR—001&nbsp;&nbsp;·&nbsp;&nbsp;PUBLIC ORIGIN</p>
+            <p class="hero-disclosure micro" data-i18n="heroDisclosure">LOCAL DEMO&nbsp;&nbsp;·&nbsp;&nbsp;EXTERNAL MODEL NOT CONNECTED</p>
           </div>
           <div class="hero-secondary">
             <p class="hero-statement" data-i18n="heroStatement">Первый сигнал развивающегося интеллекта.</p>
@@ -117,7 +121,6 @@
               <a class="primary-action" href="app.html" data-open-app><span data-i18n="openNeivum">Открыть NEIVUM</span><i>↗</i></a>
               <a class="text-action" href="#system"><span data-i18n="explore">Исследовать систему</span><i>↓</i></a>
             </div>
-            <a class="launch-film-link" href="about.html#launch-film" data-transition-link data-transition-label="NEIVUM 0.1 / LAUNCH FILM"><span data-i18n="launchFilm">Смотреть фильм о запуске</span><i aria-hidden="true">↗</i></a>
           </div>
           <div class="hero-build micro">ORIVANTAI / NEIVUM SYSTEM<br>BUILD 0.1 / PULSAR ACTIVE</div>
           <div class="hero-scroll micro"><span data-i18n="scrollToEnter">Прокрутите, чтобы войти в сигнал</span><i></i></div>
@@ -256,7 +259,6 @@
   <footer class="site-footer">
     <p>© 2026 ORIVANTAI</p>
     <p>NEIVUM SYSTEM / PUBLIC BUILD 0.1</p>
-    <a href="about.html" data-transition-link data-transition-label="OPENING ORIVANTAI">ABOUT ORIVANTAI ↗</a>
     <a href="#platform" data-i18n="backTop">Вернуться к началу ↑</a>
   </footer>
 
