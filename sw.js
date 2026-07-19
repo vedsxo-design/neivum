@@ -1,11 +1,11 @@
 "use strict";
 
-const CACHE = "neivum-0.1-maximum-v4";
+const CACHE = "neivum-0.1-maximum-v5";
 const CORE = [
   "./index.html", "./app.html", "./about.html", "./manifest.webmanifest",
   "./neivum-assets/device.js", "./neivum-assets/core.js",
   "./neivum-assets/site.css", "./neivum-assets/site.js", "./neivum-assets/about.css",
-  "./neivum-assets/app.css", "./neivum-assets/app.js",
+  "./neivum-assets/app.css", "./neivum-assets/app-refresh.css", "./neivum-assets/app.js",
   "./neivum-assets/favicon.svg", "./neivum-assets/icon-192.png",
   "./neivum-assets/icon-512.png", "./neivum-assets/NEIVUM_og_cover.png"
 ];
