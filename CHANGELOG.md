@@ -8,6 +8,7 @@
 - Чат получил состояние `PROCESSING SIGNAL`, активный telemetry-readout и маркировку локальных подготовленных ответов.
 - Добавлена полноценная `about.html` с контекстом OrivantAI и визуальным launch-film frame; битые ссылки на страницу устранены.
 - Service Worker обновлён до `neivum-0.1-maximum-v3` и включает новую контекстную страницу.
+- Service Worker обновлён до `neivum-0.1-maximum-v4`; переходный слой чата получил защиту от зависания и фиксированный размер символа.
 
 ## Maximum art-direction and product polish
 

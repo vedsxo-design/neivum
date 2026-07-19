@@ -1,6 +1,6 @@
 "use strict";
 
-const CACHE = "neivum-0.1-maximum-v3";
+const CACHE = "neivum-0.1-maximum-v4";
 const CORE = [
   "./index.html", "./app.html", "./about.html", "./manifest.webmanifest",
   "./neivum-assets/device.js", "./neivum-assets/core.js",
